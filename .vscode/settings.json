@@ -18,12 +18,13 @@
     "briefing.md": "apiblueprint",
     "ERM.md": "architecture",
     "PRD.md": "architecture",
+    "SKILL.md": "slint",
   },
   "material-icon-theme.folders.associations": {
     ".agents": "robot",
-    "agents": "robot",
-    "prompts": "robot",
-    "skills": "robot",
+    "agents": "prompts",
+    "prompts": "prompts",
+    "skills": "prompts",
   },
   "workbench.colorCustomizations": {
     "statusBar.foreground": "#d946ef"
