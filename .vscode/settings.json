@@ -24,5 +24,8 @@
     "agents": "robot",
     "prompts": "robot",
     "skills": "robot",
+  },
+  "workbench.colorCustomizations": {
+    "statusBar.foreground": "#d946ef"
   }
 }
