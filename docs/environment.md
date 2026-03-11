@@ -1,4 +1,6 @@
 
+https://angular.dev/reference/releases
+
 ```bash
 # install and select node version
 fnm i v20.19.2
@@ -8,3 +10,5 @@ node -v
 npm i @angular/cli@17.3.17 -g
 ng v
 ````
+
+ng new astro-bookings --directory=./ --ssr --routing --dry-run
