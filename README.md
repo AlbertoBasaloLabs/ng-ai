@@ -4,7 +4,10 @@ Laboratory to explore AI dev tools with Angular
 
 ## Sample project : Astro-Bookings
 
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.17.
+
 - [Briefing](project/briefing.md)
+
 ---
 
 - **Author**: [Alberto Basalo](https://albertobasalo.dev)
