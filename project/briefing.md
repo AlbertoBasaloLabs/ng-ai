@@ -19,7 +19,10 @@ A **frontend web application** for offering bookings for rocket launches.
 > The system is designed for demonstration and training purposes. 
 > Not for production use; no security is required at the initial stage.
 
+## API Overview
+- Runs locally on http://localhost:3000
+- [Endpoints](./api-endpoint.md) for rockets, launches, customers, and bookings.
+- [Models](./api-models.md) defining the data structures for each resource.
 
 >[!NOTE]
-> Backend API at https://github.com/AlbertoBasaloAcademy/astro-bookings-demo
-> Will run locally on http://localhost:3000
+> Backend API at https://github.com/AlbertoBasalo/astro-bookings-express
