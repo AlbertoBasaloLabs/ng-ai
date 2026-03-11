@@ -1,13 +1,24 @@
 {
   "name": "astro-bookings",
+  "description": "Laboratory to explore AI dev tools with Angular",
   "version": "0.0.0",
+  "repository": {
+    "url": "https://github.com/AlbertoBasaloLabs/ng-ai"
+  },
+  "author": {
+    "name": "Alberto Basalo",
+    "company": "AI code Academy",
+    "website": "https://aicode.academy",
+    "email": "albertobasalo@aicode.academy"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:astro-bookings": "node dist/astro-bookings/server/server.mjs"
+    "serve:ssr:astro-bookings": "node dist/astro-bookings/server/server.mjs",
+    "chrome": "start chrome -incognito -auto-open-devtools-for-tabs http://localhost:4200"
   },
   "private": true,
   "dependencies": {

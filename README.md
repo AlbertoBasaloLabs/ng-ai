@@ -6,6 +6,7 @@ Laboratory to explore AI dev tools with Angular
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.17.
 
+- [Repo](https://github.com/AlbertoBasaloLabs/ng-ai)
 - [Briefing](project/briefing.md)
 
 ---
