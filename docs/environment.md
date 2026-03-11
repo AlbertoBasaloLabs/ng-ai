@@ -11,4 +11,4 @@ npm i @angular/cli@17.3.17 -g
 ng v
 ````
 
-ng new astro-bookings --directory=./ --ssr --routing --dry-run
+ng new astro-bookings --directory=./ --force --ssr --routing --style=css --dry-run
