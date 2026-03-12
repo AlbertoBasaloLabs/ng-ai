@@ -8,6 +8,7 @@
   "chat.promptFilesLocations": {
     ".agents/prompts": true
   },
+  "chat.useAgentsMdFile": true,
   "material-icon-theme.files.associations": {
     "AGENTS.md": "contributing",
     "*.briefing.md": "apiblueprint",
@@ -27,6 +28,8 @@
     "skills": "prompts",
   },
   "workbench.colorCustomizations": {
-    "statusBar.foreground": "#d946ef"
-  }
+    "statusBar.foreground": "#d946ef",
+    "activityBar.foreground": "#d946ef",
+    "activityBar.border": "#d946ef",
+  },
 }
