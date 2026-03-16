@@ -1,13 +1,4 @@
 {
-  "chat.agentFilesLocations": {
-    ".agents/agents": true
-  },
-  "chat.agentSkillsLocations": {
-    ".agents/skills": true,
-  },
-  "chat.promptFilesLocations": {
-    ".agents/prompts": true
-  },
   "chat.useAgentsMdFile": true,
   "material-icon-theme.files.associations": {
     "AGENTS.md": "contributing",
