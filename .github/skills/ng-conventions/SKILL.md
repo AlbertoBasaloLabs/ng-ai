@@ -2,7 +2,6 @@
 name: ng-conventions
 description: Best practices and conventions for Angular development. To be used when working on Angular projects to ensure code quality and maintainability.
 ---
-
 # Ng Conventions
 
 - Use the CLI to generate components, services, and other Angular artifacts to ensure consistent file structure and naming conventions.
