@@ -56,6 +56,12 @@ Set the this defaults for CLI generation in `angular.json`:
 ### Shared Reusable
 
 - Presentational components placed in a `shared` folder, reusable across the application.
+- Examples: `Button`, `Card`, `List`, `Table`, `Form`, etc.
+
+### Core 
+
+- Presentational components placed in a `core` folder, used only once by the app component
+- Examples: `Header`, `Footer`, `Navbar`, `Sidebar`, `Dialog`, `Modal`, `Toast`, etc.
 
 ## Services
 
