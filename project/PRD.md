@@ -16,11 +16,11 @@ Out of scope for MVP: dedicated customer management screens, mock billing and pa
 
 ### FR1 Initial Layout and Navigation
 - The application must provide a shared layout with header and footer, including links for home, rockets, launches, and bookings so users can move across core areas consistently.
-- **Status**: NotStarted
+- **Status**: Planned
 
 ### FR2 Rocket Listing and Creation
 - The application must allow users to view the rockets list and create a new rocket with required fields aligned to API constraints.
-- **Status**: NotStarted
+- **Status**: Planned
 
 ### FR3 Rocket Details and Launch Scheduling Entry
 - The rocket details view must display launches associated with the selected rocket and provide an action to open the create-launch flow for that rocket.
