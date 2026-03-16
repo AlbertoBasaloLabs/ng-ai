@@ -1,6 +1,6 @@
 # Rocket Listing and Creation Specification
 - **Type**: feat
-- **Status**: Draft
+- **Status**: Planned
 
 ## Problem Description
 
