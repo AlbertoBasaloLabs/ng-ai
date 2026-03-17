@@ -33,6 +33,7 @@ Generate or update the project briefing document.
   - {Agents_file}: The main instructions file for agents.
 
 ### Step 2: Generate or update the AGENTS.md file
+
 - [ ] Review the existing `{Agents_file}` if it exists.
 - [ ] Create or update the `{Agents_file}` with:
   - A brief overview of the project and its goals.
@@ -41,6 +42,7 @@ Generate or update the project briefing document.
   - Keep it under 100 sentences, with each sentence less than 100 characters.
 
 ### Step 3: Generate or update the briefing document
+
 - [ ] Create or update the briefing document at `{Project_Folder}/briefing.md` with:
   - A summary of the project, its objectives, and key information.
   - Keep it under 100 sentences, with each sentence less than 100 characters.

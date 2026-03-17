@@ -2,6 +2,7 @@
 name: coding-ts
 description: TypeScript coding conventions and best practices for Angular projects. Use for writing clean, maintainable, and consistent TypeScript code. 
 ---
+
 # TypeScript Conventions
 
 - Strict typing: Enable `strict` mode in `tsconfig.json` for better type safety and error detection.
