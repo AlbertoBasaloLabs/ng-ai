@@ -23,4 +23,5 @@
     "activityBar.foreground": "#d946ef",
     "activityBar.border": "#d946ef",
   },
+  "workbench.browser.enableChatTools": true
 }
