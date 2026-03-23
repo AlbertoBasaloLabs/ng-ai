@@ -1,0 +1,11 @@
+@if (isLoading()) {
+  <p [attr.aria-busy]="isLoading()">{{ loadingLabel() }}</p>
+} @else if (item(); as selecteditem) {
+  <app-item-detail
+    [item]="selecteditem"
+    (addToCartRequested)="onAddToCartRequested($event)"
+    />
+} @else {
+  <p>{{ notFoundLabel() }}</p>
+}
+<a routerLink="/">{{ backToHomeLabel }}</a>

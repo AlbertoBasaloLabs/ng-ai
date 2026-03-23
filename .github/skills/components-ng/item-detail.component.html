@@ -1,0 +1,43 @@
+<article [attr.aria-labelledby]="titleId()">
+  <header>
+    <p>{{ labels.detailsHeading }}</p>
+    <h2 [id]="titleId()">{{ item().name }}</h2>
+  </header>
+  <body>
+  <dl>
+    <dt>{{ labels.itemId }}</dt>
+    <dd>{{ item().id }}</dd>
+
+    <dt>{{ labels.description }}</dt>
+    <dd>{{ description() }}</dd>
+
+    <dt>{{ labels.price }}</dt>
+    <dd>{{ formattedPrice() }}</dd>
+
+    <dt>{{ labels.updated }}</dt>
+    <dd>{{ formattedUpdatedAt() }}</dd>
+  </dl>
+  <section>
+    <h3>{{ labels.features }}</h3>
+    @if (hasFeatures()) {
+      <div role="list">
+        @for (feature of item().features; track feature.id) {
+          <p role="listitem">{{ feature.label }}</p>
+        }
+      </div>
+    } @else {
+      <p>{{ labels.noFeatures }}</p>
+    }
+  </section>
+  </body>
+  <footer>
+    <button
+      type="button"
+      [attr.aria-label]="labels.addToCart"
+      (click)="onAddToCartRequested()"
+      >
+      {{ labels.addToCart }}
+    </button>
+  </footer>
+
+</article>
