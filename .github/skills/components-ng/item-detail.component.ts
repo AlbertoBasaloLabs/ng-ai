@@ -1,19 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
-
-type ItemFeature = {
-  id: string;
-  label: string;
-};
-
-export interface ItemDetailViewModel {
-  id: string;
-  name: string;
-  description: string;
-  price: number;
-  currency: string;
-  updatedAtIso: string;
-  features: ReadonlyArray<ItemFeature>;
-}
+import type { ItemDetailViewModel } from './item-detail-view-model.type.ts';
 
 @Component({
   selector: 'app-item-detail',

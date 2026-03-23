@@ -7,7 +7,7 @@ description: Best practices and conventions for Angular development. To be used 
 
 - Use the CLI to generate components, services, and other Angular artifacts to ensure consistent file structure and naming conventions.
 - Follow the Angular Style Guide for naming conventions, such as using camelCase for variables and functions, and PascalCase for classes and components.
-
+- Models must be defined as TypeScript types in their own file. 
 ## Angular Configuration
 
 Set the this defaults for CLI generation in `angular.json`:

@@ -1,27 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
-
-export interface ItemDetail {
-  id: string;
-  name: string;
-  description: string;
-  price: number;
-  currency: string;
-}
-
-export interface CartItem {
-  itemId: string;
-  name: string;
-  price: number;
-  currency: string;
-  quantity: number;
-}
-
-export interface AddToCartRequest {
-  itemId: string;
-  quantity: number;
-}
+import { AddToCartRequest } from './add-to-cart-request.type';
+import { CartItem } from './cart-item.type';
+import { ItemDetail } from './item-detail.type';
 
 @Injectable({ providedIn: 'root' })
 export class ItemDetailRepository {

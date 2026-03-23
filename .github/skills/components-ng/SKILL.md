@@ -32,22 +32,26 @@ description: Components with Angular. Use when generating any type of routed pag
 - Suffixed with `Page` (e.g., `ItemDetailPage`). Generated with: `ng g c routes/item-detail --type=page`
 - Exported as `default` for simpler route imports.
 - Receive route parameters via `input.required<Type>()` signals.
-- **Provide** their component service in `providers: []` — this scopes the service to the page lifetime.
-- Wire the route input signal into the component service via `connect()` in `ngOnInit`.
-- Delegate all data and async logic to the component service — no direct repository or store injection.
+- Inject repositories for data fetching and stores for shared state — no intermediate service layer.
+- Use **`rxResource`** directly for async operations — route input signals feed `request` naturally.
+- Write to stores after successful operations to share state with the rest of the app.
 - Use presentational components to avoid raw HTML in the template.
 
 ```ts
-@Component({
-  providers: [ItemDetailComponentService], // scoped to this page
-})
-export default class ItemDetailPage implements OnInit {
-  readonly id = input.required<string>();
-  readonly #service = inject(ItemDetailComponentService);
+export default class ItemDetailPage {
+  readonly #repository = inject(ItemDetailRepository);
+  readonly #cartStore = inject(CartStore);
 
-  ngOnInit(): void {
-    this.#service.connect(this.id); // wire route signal into rxResource
-  }
+  readonly id = input.required<string>(); // route param
+
+  // rxResource reacts to the input signal directly — no wiring needed
+  readonly #itemResource = rxResource({
+    request: () => this.id(),
+    loader: ({ request: id }) => this.#repository.getById$(id),
+  });
+
+  readonly item = this.#itemResource.value;
+  readonly isLoading = this.#itemResource.isLoading;
 }
 ```
 
@@ -55,7 +59,7 @@ export default class ItemDetailPage implements OnInit {
 
 - Focused on UI and presentation, with minimal logic.
 - No injected services — receive data via `input()` and emit events via `output()`.
-- Define a `ViewModel` interface for their input shape — mapping from API models happens in the repository or component service, not here.
+- Define a `ViewModel` interface for their input shape — mapping from API models happens in the repository, not here.
 - Can contain computed signals for formatting or derived display values.
 - Can use other presentational components but no business logic.
 
@@ -63,6 +67,24 @@ export default class ItemDetailPage implements OnInit {
 
 - **Shared Reusable** — placed in `shared/`, reusable across the app. Examples: `Button`, `Card`, `Table`.
 - **Core Application** — placed in `core/`, used once by the app shell. Examples: `Header`, `Footer`, `Sidebar`.
+
+### Layer rules
+
+```
+Page          →  Repository   (rxResource for async, direct injection)
+Page          →  Store        (reads shared signals, calls store actions)
+Store         →  (none)       (pure signals, no dependencies)
+Repository    →  (none)       (HttpClient only, returns Observables)
+```
+
+### When to introduce a component service
+
+A dedicated component service is worth adding when a page grows complex enough that it needs:
+- Logic shared across **multiple sibling components** under the same page
+- Non-trivial **orchestration** between several async resources
+- The page class itself becomes hard to read due to volume of signals and actions
+
+In those cases, scope the service to the page with `providers: [PageComponentService]` and inject it in the page and its children.
 
 ### Examples
 
