@@ -19,6 +19,11 @@ Set the this defaults for CLI generation in `angular.json`:
   }
 }
 ```
+
+---
+
+## Main building blocks: Components and Services
+
 ### Components
 
 For specific conventions on components, see the [components-ng skill](../components-ng/SKILL.md).
@@ -27,19 +32,23 @@ For specific conventions on components, see the [components-ng skill](../compone
 
 For specific conventions on services, see the [service-ng skill](../service-ng/SKILL.md).
 
+---
 
-## Routing
+## Recipes
+
+### Routing
 
 - Configure routing at `app.config.ts` file with:
   - `provideRouter(routes, withComponentInputBinding()),` function.
 For each route create:
 - A **routed** component with type `Page` (e.g., `UserPage`) 
 - A **presentational** component for the UI (e.g., `UserProfile`).
-- A **service** to manage data and business logic for the route (e.g., `UserService`).
 - Optionally:
   - a **guard** to protect the route based on authentication or permissions.
   - a **resolver** to fetch data before activating the route.
   - a **repository service** to handle data fetching and transformations.
+  - A **service** to manage data and business logic for the route (e.g., `UserService`).
+  - An **store** to manage shared state across the app (e.g., `UserStore`).
   
 ```bash
 # for route /users/:id
@@ -58,7 +67,7 @@ export const routes: Route[] = [
   }
 ```
 
-## HTTP communication
+### HTTP communication
 
 - Configure http at `app.config.ts` file with:
   - `provideHttpClient(withFetch(), withInterceptors([])),` function.
@@ -86,27 +95,3 @@ class UserRepository {
 }
 ```
 
-### Resources to interop with signals in services
-
-```ts
-class UserService {
-  #repository = inject(UserRepository);
-  
-  #userResource = rxResource<User, {id: string}>({
-    request: () => ({id: this.userId()}),
-    loader: ({request}) => this.#repository.getUser$(request.id),
-  });
-
-  userId = signal('');
-  user = this.#userResource.value;
-  error = this.#userResource.error;
-  loading = this.#userResource.isLoading;
-
-  saveUser(user: User) {
-    this.#repository.saveUser$(user).subscribe({
-      next: (savedUser) => this.userId.set(savedUser.id),
-      error: (err) => throw Error(err)
-    });
-  }
-}
-```

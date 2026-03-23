@@ -74,8 +74,17 @@ export default class ItemDetailPage {
 Page          →  Repository   (rxResource for async, direct injection)
 Page          →  Store        (reads shared signals, calls store actions)
 Store         →  (none)       (pure signals, no dependencies)
-Repository    →  (none)       (HttpClient only, returns Observables)
+Repository    →  (Http API)   (HttpClient only, returns Observables)
 ```
+
+```mermaid
+flowchart TD
+  Page --> Repository
+  Page --> Store
+  Repository --> HttpClient
+  Store --> (none)
+```
+
 
 ### When to introduce a component service
 
