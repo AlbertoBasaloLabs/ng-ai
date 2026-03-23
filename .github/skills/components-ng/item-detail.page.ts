@@ -1,37 +1,40 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  computed,
-  InjectionToken,
   inject,
   input,
-  signal,
+  OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
-
-import { ItemDetailService } from './item-detail.service';
-import { CartStoreService } from '../../shared/cart-store.service';
+import { ItemDetailComponent } from './item-detail.component';
+import { ItemDetailComponentService } from './item-detail.component.service';
 
 @Component({
   selector: 'app-item-detail-page',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, ItemDetailComponent],
+  providers: [ItemDetailComponentService],
   templateUrl: './item-detail.page.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class ItemDetailPage {
+export default class ItemDetailPage implements OnInit {
   readonly id = input.required<string>();
-  readonly #itemDetailService = inject(ItemDetailService);
-  readonly #cartStoreService = inject(CartStoreService);
+  readonly #service = inject(ItemDetailComponentService);
 
-  readonly loadingLabel = computed(() => 'Loading item...' + this.id());
-  readonly notFoundLabel = computed(() => `Item  ${this.id()} not found.`);
+  readonly item = this.#service.item;
+  readonly isLoading = this.#service.isLoading;
+  readonly error = this.#service.error;
+  readonly cartCount = this.#service.cartCount;
+
+  readonly loadingLabel = 'Loading item...';
+  readonly notFoundLabel = 'Item not found.';
   readonly backToHomeLabel = 'Back to home';
 
-  readonly item = computed(() => this.#itemDetailService.getById(this.id()));
-  readonly isLoading = computed(() => this.#itemDetailService.loading());
+  ngOnInit(): void {
+    this.#service.connect(this.id);
+  }
 
-  onAddToCartRequested(itemId: string) {
-    this.#cartStoreService.addItem(itemId);
+  onAddToCartRequested(itemId: string): void {
+    this.#service.addToCart(1);
   }
 }

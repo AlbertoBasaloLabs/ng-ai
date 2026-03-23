@@ -8,13 +8,19 @@ export interface ItemDetail {
   description: string;
   price: number;
   currency: string;
-  updatedAtIso: string;
 }
 
-export interface SaveItemDetailRequest {
-  id: string;
+export interface CartItem {
+  itemId: string;
   name: string;
-  description: string;
+  price: number;
+  currency: string;
+  quantity: number;
+}
+
+export interface AddToCartRequest {
+  itemId: string;
+  quantity: number;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -25,7 +31,7 @@ export class ItemDetailRepository {
     return this.#httpClient.get<ItemDetail>(`/api/items/${id}`);
   }
 
-  save$(request: SaveItemDetailRequest): Observable<ItemDetail> {
-    return this.#httpClient.put<ItemDetail>(`/api/items/${request.id}`, request);
+  addToCart$(request: AddToCartRequest): Observable<CartItem> {
+    return this.#httpClient.post<CartItem>(`/api/cart`, request);
   }
 }

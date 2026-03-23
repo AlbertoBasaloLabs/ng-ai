@@ -1,0 +1,37 @@
+import { Injectable, Signal, computed, signal } from '@angular/core';
+import { CartItem } from './item-detail.repository';
+
+@Injectable({ providedIn: 'root' })
+export class CartStore {
+  readonly #items = signal<CartItem[]>([]);
+
+  readonly items: Signal<CartItem[]> = this.#items.asReadonly();
+  readonly count = computed(() =>
+    this.#items().reduce((sum, i) => sum + i.quantity, 0),
+  );
+  readonly total = computed(() =>
+    this.#items().reduce((sum, i) => sum + i.price * i.quantity, 0),
+  );
+
+  add(item: CartItem): void {
+    this.#items.update((current) => {
+      const existing = current.find((i) => i.itemId === item.itemId);
+      if (existing) {
+        return current.map((i) =>
+          i.itemId === item.itemId
+            ? { ...i, quantity: i.quantity + item.quantity }
+            : i,
+        );
+      }
+      return [...current, item];
+    });
+  }
+
+  remove(itemId: string): void {
+    this.#items.update((current) => current.filter((i) => i.itemId !== itemId));
+  }
+
+  clear(): void {
+    this.#items.set([]);
+  }
+}
