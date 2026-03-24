@@ -63,7 +63,7 @@ export class ItemDetailRepository {
 ```ts
 @Injectable({ providedIn: 'root' })
 export class CartStore {
-  readonly #items = signal<CartItem[]>([]);
+  readonly #items: WritableSignal<CartItem[]> = signal<CartItem[]>([]);
 
   readonly items: Signal<CartItem[]> = this.#items.asReadonly();
   readonly count = computed(() => this.#items().reduce((sum, i) => sum + i.quantity, 0));
@@ -71,11 +71,12 @@ export class CartStore {
 
   add(item: CartItem): void {
     this.#items.update((current) => {
-      const existing = current.find((i) => i.itemId === item.itemId);
-      if (existing) {
-        return current.map((i) =>
-          i.itemId === item.itemId ? { ...i, quantity: i.quantity + item.quantity } : i,
-        );
+      const index = current.findIndex((i) => i.itemId === item.itemId);
+      const exists = index !== -1;
+      if (exists) {
+        const updated = [...current];
+        updated[index].quantity += item.quantity;
+        return updated;
       }
       return [...current, item];
     });
@@ -101,6 +102,7 @@ export class CartStore {
   - Logic shared across multiple sibling components under the same page.
   - Non-trivial orchestration between several async resources.
   - The page class itself becomes hard to read.
+  - Too much mapping is needed to convert repository data into component-friendly types.
 - **Scoped to the page** via `providers: [PageComponentService]` — not root.
 - Follows the same rules as a page: injects repository and store, owns `rxResource`.
 - When NOT needed, pages inject repository and store directly (see page pattern below).
@@ -116,14 +118,14 @@ Re-fetches automatically when the request signal changes (e.g. route input):
 
 ```ts
 readonly #itemResource = rxResource({
-  request: () => this.id(),                               // signal drives the fetch
+  request: () => this.id(), // signal drives the fetch
   loader: ({ request: id }) => this.#repository.getById$(id),
 });
 
-readonly item      = this.#itemResource.value;      // Signal<T | undefined>
-readonly isLoading = this.#itemResource.isLoading;  // Signal<boolean>
-readonly error     = computed(() =>
-  this.#itemResource.error() ? 'Failed to load.' : null
+readonly item: Signal<T | undefined> = this.#itemResource.value;
+readonly isLoading: Signal<boolean> = this.#itemResource.isLoading;
+readonly error: Signal<string | null> = computed(() => 
+  this.#itemResource.error() ? 'Failed to load.' : null 
 );
 ```
 

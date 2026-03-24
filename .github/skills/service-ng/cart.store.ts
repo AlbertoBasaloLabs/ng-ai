@@ -15,14 +15,14 @@ export class CartStore {
 
   add(item: CartItem): void {
     this.#items.update((current) => {
-      const existing = current.find((i) => i.itemId === item.itemId);
-      if (existing) {
-        return current.map((i) =>
-          i.itemId === item.itemId
-            ? { ...i, quantity: i.quantity + item.quantity }
-            : i,
-        );
+      const index = current.findIndex((i) => i.itemId === item.itemId);
+      const exists = index !== -1;
+      if (exists) {
+        const updated = [...current];
+        updated[index].quantity += item.quantity;
+        return updated;
       }
+
       return [...current, item];
     });
   }
